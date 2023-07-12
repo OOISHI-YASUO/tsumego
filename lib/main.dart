@@ -80,7 +80,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    print(size);
+    //print(size);
     double button_size = size.width / 8;
     return Scaffold(
       body: Center(
