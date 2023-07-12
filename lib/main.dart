@@ -47,11 +47,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool check_view = false;
   bool show_answer = false;
   bool answer_check = false;
-  //_MyHomePageState() {
-  //print("_MyHomePageState");
-  //makeQuestion();
-  //nextQuestion();
-  //}
+  //bool next_question = false;
 
   @override
   void initState() {
@@ -451,5 +447,7 @@ class _MyHomePageState extends State<MyHomePage> {
     await prefs.setInt('primer', qno);
     eye_view = false;
     undo_view = false;
+    //next_question = true;
+    await Future.delayed(Duration(milliseconds: 100));
   }
 }
