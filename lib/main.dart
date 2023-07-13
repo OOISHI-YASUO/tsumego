@@ -55,12 +55,14 @@ class _MyHomePageState extends State<MyHomePage> {
     nextQuestion();
   }
 
-  void makeQuestion() async {
+  void makeQuestion(int grade) {
+    /*
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     int? grade = prefs.getInt("grade");
     if (grade == null) {
       grade = 1;
     }
+    */
     if (grade == 1) {
       Data.makeQuestionPrimer();
       Data.setGradeName("primer");
@@ -428,16 +430,24 @@ class _MyHomePageState extends State<MyHomePage> {
       await prefs.setInt(grade_name, qno);
     }
     if (Data.getQuestionCount() == 0) {
-      makeQuestion();
-    }
-    if (qno > Data.getQuestionCount()) {
+      makeQuestion(grade);
+    } else if (qno > Data.getQuestionCount()) {
       qno = 1;
       grade++;
       if (grade > 3) grade = 1;
       await prefs.setInt("grade", grade);
+      if (grade == 1) {
+        grade_name = "primer";
+      } else if (grade == 2) {
+        grade_name = "beginner";
+      } else if (grade == 3) {
+        grade_name = "intermediate";
+      }
       await prefs.setInt(grade_name, qno);
-      makeQuestion();
+      makeQuestion(grade);
     }
+    print("grade_name=${grade_name}");
+    print("qno=${qno}");
     await prefs.setInt(Data.grade_name, qno);
     //一度も出題していない問題
     String data = Data.getQuestion(qno);
@@ -448,6 +458,6 @@ class _MyHomePageState extends State<MyHomePage> {
     eye_view = false;
     undo_view = false;
     //next_question = true;
-    await Future.delayed(Duration(milliseconds: 100));
+    await Future.delayed(Duration(milliseconds: 200));
   }
 }
