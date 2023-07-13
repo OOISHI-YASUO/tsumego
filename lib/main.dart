@@ -454,10 +454,8 @@ class _MyHomePageState extends State<MyHomePage> {
     kifuList = data.split('|');
     String kifu = kifuList.elementAt(0);
     seikai_tesu = readKifu(kifu, false);
-    await prefs.setInt('primer', qno);
     eye_view = false;
     undo_view = false;
-    //next_question = true;
-    await Future.delayed(Duration(milliseconds: 200));
+    //await Future.delayed(Duration(milliseconds: 200));
   }
 }
