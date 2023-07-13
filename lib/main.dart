@@ -50,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
   //bool next_question = false;
 
   @override
-  void initState() {
+  Future<void> initState() async {
     super.initState();
-    nextQuestion();
+    await nextQuestion();
   }
 
   void makeQuestion(int grade) {
@@ -254,7 +254,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onTouchEvent2(details) {
-    setState(() {
+    setState(() async {
       Offset set = details.localPosition;
       double x = set.dx;
       int inx = (x / button_height).toInt();
@@ -289,7 +289,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //次の問題
             show_answer = false;
             answer_check = false;
-            nextQuestion();
+            await nextQuestion();
           } else if (inx == 1) {
             //初手
             gbn.prevAll();
@@ -405,7 +405,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // 次の問題
-  void nextQuestion() async {
+  Future<void> nextQuestion() async {
     String grade_name = "primer";
     gbn.setInputMode(true);
     final SharedPreferences prefs = await SharedPreferences.getInstance();
