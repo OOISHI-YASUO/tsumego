@@ -56,13 +56,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void makeQuestion(int grade) {
-    /*
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    int? grade = prefs.getInt("grade");
-    if (grade == null) {
-      grade = 1;
-    }
-    */
     if (grade == 1) {
       Data.makeQuestionPrimer();
       Data.setGradeName("primer");
@@ -290,6 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             show_answer = false;
             answer_check = false;
             nextQuestion();
+            gbn.changeYJ();
           } else if (inx == 1) {
             //初手
             gbn.prevAll();
