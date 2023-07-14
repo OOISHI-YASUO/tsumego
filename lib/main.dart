@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:io';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -247,64 +248,65 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   void onTouchEvent2(details) {
-    setState(() {
-      Offset set = details.localPosition;
-      double x = set.dx;
-      int inx = (x / button_height).toInt();
-      if (show_answer == false) {
-        if (eye_view) {
-          if (inx == 0) {
-            //正解を見る
-            showSeikai();
-          } else if (inx == 1) {
-            //１手戻る
-            gbn.cancel();
-          }
-        } else {
-          if (inx == 0) {
-            //１手戻る
-            gbn.cancel();
-          }
+    Offset set = details.localPosition;
+    double x = set.dx;
+    int inx = (x / button_height).toInt();
+    if (show_answer == false) {
+      if (eye_view) {
+        if (inx == 0) {
+          //正解を見る
+          showSeikai();
+        } else if (inx == 1) {
+          //１手戻る
+          gbn.cancel();
         }
-      } else if (show_answer == true) {
-        if (answer_check) {
-          if (inx == 0) {
-            //正解を見る
-            showSeikai();
-            answer_check = false;
-            gbn.setInputMode(false);
-          } else if (inx == 1) {
-            //１手戻る
-            gbn.cancel();
-          }
-        } else {
-          if (inx == 0) {
-            //次の問題
-            show_answer = false;
-            answer_check = false;
-            nextQuestion();
-            //gbn.changeYJ();
-          } else if (inx == 1) {
-            //初手
-            gbn.prevAll();
-          } else if (inx == 2) {
-            //1手戻る
-            gbn.prev();
-          } else if (inx == 3) {
-            //1手進む
-            gbn.next();
-          } else if (inx == 4) {
-            //参照
-            kifuInx++;
-            if (kifuList.length <= kifuInx) kifuInx = 0;
-            String kifu = kifuList.elementAt(kifuInx);
-            seikai_tesu = readKifu(kifu, true);
-          } else if (inx == 5) {
-            //チェック
-            check();
-          }
+      } else {
+        if (inx == 0) {
+          //１手戻る
+          gbn.cancel();
         }
       }
+    } else if (show_answer == true) {
+      if (answer_check) {
+        if (inx == 0) {
+          //正解を見る
+          showSeikai();
+          answer_check = false;
+          gbn.setInputMode(false);
+        } else if (inx == 1) {
+          //１手戻る
+          gbn.cancel();
+        }
+      } else {
+        if (inx == 0) {
+          //次の問題
+          show_answer = false;
+          answer_check = false;
+          nextQuestion();
+          //gbn.changeYJ();
+        } else if (inx == 1) {
+          //初手
+          gbn.prevAll();
+        } else if (inx == 2) {
+          //1手戻る
+          gbn.prev();
+        } else if (inx == 3) {
+          //1手進む
+          gbn.next();
+        } else if (inx == 4) {
+          //参照
+          kifuInx++;
+          if (kifuList.length <= kifuInx) kifuInx = 0;
+          String kifu = kifuList.elementAt(kifuInx);
+          seikai_tesu = readKifu(kifu, true);
+        } else if (inx == 5) {
+          //チェック
+          check();
+        }
+      }
+    }
+    setState(() {
+      sleep(Duration(milliseconds: 100));
       changeView();
     });
   }
@@ -450,6 +452,6 @@ class _MyHomePageState extends State<MyHomePage> {
     seikai_tesu = readKifu(kifu, false);
     eye_view = false;
     undo_view = false;
-    await Future.delayed(Duration(milliseconds: 500));
+    //await Future.delayed(Duration(milliseconds: 500));
   }
 }
