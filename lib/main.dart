@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'dart:io';
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -306,7 +306,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
     setState(() {
-      sleep(Duration(milliseconds: 100));
+      //sleep(Duration(milliseconds: 100));
       changeView();
     });
   }
@@ -453,5 +453,13 @@ class _MyHomePageState extends State<MyHomePage> {
     eye_view = false;
     undo_view = false;
     //await Future.delayed(Duration(milliseconds: 500));
+    Timer.periodic(
+      Duration(seconds: 1),
+      _onTimer,
+    );
+  }
+
+  void _onTimer(Timer timer) {
+    setState(() {});
   }
 }
