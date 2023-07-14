@@ -283,7 +283,7 @@ class _MyHomePageState extends State<MyHomePage> {
             show_answer = false;
             answer_check = false;
             nextQuestion();
-            gbn.changeYJ();
+            //gbn.changeYJ();
           } else if (inx == 1) {
             //初手
             gbn.prevAll();
@@ -450,6 +450,6 @@ class _MyHomePageState extends State<MyHomePage> {
     seikai_tesu = readKifu(kifu, false);
     eye_view = false;
     undo_view = false;
-    //await Future.delayed(Duration(milliseconds: 200));
+    await Future.delayed(Duration(milliseconds: 500));
   }
 }
