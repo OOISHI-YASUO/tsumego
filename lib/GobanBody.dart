@@ -161,7 +161,8 @@ class _GobanPainter extends CustomPainter {
 
     //int kirokuTesu = gbn.tjn.getKirokuTesu();
     if (gbn.bangoList.isEmpty) return;
-    for (int i = 0; i < gbn.bangoList.length; i++) {
+    int tesu = gbn.tjn.getTesu();
+    for (int i = 0; i < tesu; i++) {
       int no = i + 1;
       Point bp = gbn.bangoList.elementAt(i);
       if (cc[bp.x.toInt()][bp.y.toInt()] == 0) {
@@ -171,7 +172,6 @@ class _GobanPainter extends CustomPainter {
       }
       //drawBango(canvas, bp, no);
     }
-    int tesu = gbn.tjn.getTesu();
     for (int y = 1; y <= 19; y++) {
       for (int x = 1; x <= 19; x++) {
         if (cc[x][y] == 0) continue;
