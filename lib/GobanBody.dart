@@ -157,18 +157,38 @@ class _GobanPainter extends CustomPainter {
 
   // 番号を表示する
   void showBango(Canvas canvas) {
-    List<List<bool>> cc =
-        List.generate(21, (_) => List.generate(21, (_) => false));
+    List<List<int>> cc = List.generate(21, (_) => List.generate(21, (_) => 0));
 
-    //int tesu = gbn.tjn.getTesu();
     //int kirokuTesu = gbn.tjn.getKirokuTesu();
-    if (gbn.bangoList.isNotEmpty) {
-      if (gbn.bangoList.length >= 1) {
-        for (int i = 0; i < gbn.bangoList.length; i++) {
-          Point bp = gbn.bangoList.elementAt(i);
-          if (cc[bp.x.toInt()][bp.y.toInt()] == true) continue;
-          drawBango(canvas, bp, i + 1);
-          cc[bp.x.toInt()][bp.y.toInt()] = true;
+    if (gbn.bangoList.isEmpty) return;
+    for (int i = 0; i < gbn.bangoList.length; i++) {
+      int no = i + 1;
+      Point bp = gbn.bangoList.elementAt(i);
+      if (cc[bp.x.toInt()][bp.y.toInt()] == 0) {
+        cc[bp.x.toInt()][bp.y.toInt()] = no;
+      } else {
+        cc[bp.x.toInt()][bp.y.toInt()] += no * 100;
+      }
+      //drawBango(canvas, bp, no);
+    }
+    int tesu = gbn.tjn.getTesu();
+    for (int y = 1; y <= 19; y++) {
+      for (int x = 1; x <= 19; x++) {
+        if (cc[x][y] == 0) continue;
+        int no = cc[x][y];
+        if (no > 100) {
+          int no1 = no % 100;
+          int no2 = (no / 100).toInt();
+          if (tesu <= no1) {
+            no = no1;
+          } else {
+            no = no2;
+          }
+          Point bp = Point(x, y);
+          drawBango(canvas, bp, no);
+        } else {
+          Point bp = Point(x, y);
+          drawBango(canvas, bp, no);
         }
       }
     }
