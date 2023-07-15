@@ -54,6 +54,10 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     nextQuestion();
+    Timer.periodic(
+      Duration(seconds: 1),
+      _onTimer,
+    );
   }
 
   void makeQuestion(int grade) {
